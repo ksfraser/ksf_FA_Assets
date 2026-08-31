@@ -86,11 +86,49 @@ class hooks_ksf_FA_Assets extends hooks {
         // Apply sql/install.sql using update_databases()
         // This handles @TB_PREF@ replacement automatically
         if (file_exists(dirname(__FILE__) . '/sql/install.sql')) {
-            $updates = array('install.sql' => array($this->module_name));
-            return $this->update_databases($company, $updates, $check_only);
+            $updates = array(
+                'install.sql'             => array($this->module_name),
+                'retag_contact_types.sql' => array('ksf_contact_types'),
+            );
+            $ok = $this->update_databases($company, $updates, $check_only);
+        } else {
+            $ok = true;
         }
-        
+
+        if (!$check_only && $ok) {
+            $this->register_contact_types();
+        }
+
+        return $ok;
+    }
+
+    function deactivate_extension($company, $check_only=true) {
+        if (!$check_only
+            && class_exists('\\ksfraser\\FrontAccounting\\Common\\ContactType\\ContactTypeRegistry')) {
+            \ksfraser\FrontAccounting\Common\ContactType\ContactTypeRegistry::unregisterModule($this->module_name);
+        }
+
         return true;
+    }
+
+    /**
+     * Register the contact types owned by this module (idempotent).
+     */
+    private function register_contact_types() {
+        $autoload = dirname(__FILE__) . '/vendor/autoload.php';
+        if (file_exists($autoload)) {
+            require_once $autoload;
+        }
+        if (!class_exists('\\ksfraser\\FrontAccounting\\Common\\ContactType\\ContactTypeRegistry')) {
+            return;
+        }
+
+        \ksfraser\FrontAccounting\Common\ContactType\ContactTypeRegistry::registerTypes(array(
+            new \ksfraser\FrontAccounting\Common\ContactType\ContactType(
+                'resource', 'Resource', $this->module_name,
+                'Shared resource (room, equipment, vehicle)'
+            ),
+        ));
     }
 
     /**
