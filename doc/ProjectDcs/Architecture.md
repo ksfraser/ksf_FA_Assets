@@ -63,7 +63,7 @@ ksf_FA_Assets/
 ## 4. Database Schema
 
 ```sql
-CREATE TABLE fa_assets (
+CREATE TABLE ksf_assets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     serial_number VARCHAR(100),
@@ -75,13 +75,13 @@ CREATE TABLE fa_assets (
     location VARCHAR(255)
 );
 
-CREATE TABLE fa_asset_categories (
+CREATE TABLE ksf_assets_categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     depreciation_method VARCHAR(50)
 );
 
-CREATE TABLE fa_asset_maintenance (
+CREATE TABLE ksf_assets_maintenance (
     id INT AUTO_INCREMENT PRIMARY KEY,
     asset_id INT,
     maintenance_type VARCHAR(100),

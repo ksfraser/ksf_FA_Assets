@@ -1,7 +1,13 @@
 -- Assets module database schema for FrontAccounting
 
 -- Asset categories
-CREATE TABLE IF NOT EXISTS `fa_asset_categories` (
+ALTER TABLE IF EXISTS `fa_assets` RENAME TO `0_ksf_assets`;
+ALTER TABLE IF EXISTS `fa_asset_categories` RENAME TO `0_ksf_assets_categories`;
+ALTER TABLE IF EXISTS `fa_asset_depreciation` RENAME TO `0_ksf_assets_depreciation`;
+ALTER TABLE IF EXISTS `fa_asset_maintenance` RENAME TO `0_ksf_assets_maintenance`;
+ALTER TABLE IF EXISTS `fa_asset_transfers` RENAME TO `0_ksf_assets_transfers`;
+
+CREATE TABLE IF NOT EXISTS `0_ksf_assets_categories` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL,
     `description` VARCHAR(255) DEFAULT NULL,
@@ -13,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `fa_asset_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Assets inventory
-CREATE TABLE IF NOT EXISTS `fa_assets` (
+CREATE TABLE IF NOT EXISTS `0_ksf_assets` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `serial_number` VARCHAR(100) DEFAULT NULL,
@@ -34,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `fa_assets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Asset depreciation history
-CREATE TABLE IF NOT EXISTS `fa_asset_depreciation` (
+CREATE TABLE IF NOT EXISTS `0_ksf_assets_depreciation` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `asset_id` INT(11) NOT NULL,
     `year` YEAR NOT NULL,
@@ -47,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `fa_asset_depreciation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Asset maintenance history
-CREATE TABLE IF NOT EXISTS `fa_asset_maintenance` (
+CREATE TABLE IF NOT EXISTS `0_ksf_assets_maintenance` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `asset_id` INT(11) NOT NULL,
     `maintenance_type` ENUM('preventive','repair','inspection','upgrade') NOT NULL DEFAULT 'preventive',
@@ -63,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `fa_asset_maintenance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Asset transfers
-CREATE TABLE IF NOT EXISTS `fa_asset_transfers` (
+CREATE TABLE IF NOT EXISTS `0_ksf_assets_transfers` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `asset_id` INT(11) NOT NULL,
     `from_type` ENUM('employee','location','customer') DEFAULT NULL,
@@ -77,4 +83,4 @@ CREATE TABLE IF NOT EXISTS `fa_asset_transfers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Module version
-INSERT INTO `fa_modules` (`name`, `version`, `enabled`, `installed`) VALUES ('Assets', '1.0.0', 1, NOW()) ON DUPLICATE KEY UPDATE `version` = '1.0.0';
+INSERT INTO `0_ksf_modules` (`name`, `version`, `enabled`, `installed`) VALUES ('Assets', '1.0.0', 1, NOW()) ON DUPLICATE KEY UPDATE `version` = '1.0.0';

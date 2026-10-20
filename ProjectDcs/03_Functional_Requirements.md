@@ -327,21 +327,21 @@ This document specifies the functional requirements for the Fixed Assets Managem
 
 | Table | Purpose |
 |-------|---------|
-| fa_asset_categories | Asset type definitions |
-| fa_assets | Individual asset records |
-| fa_asset_depreciation | Depreciation history entries |
-| fa_asset_maintenance | Maintenance activity records |
-| fa_asset_transfers | Asset transfer history |
+| ksf_assets_categories | Asset type definitions |
+| ksf_assets | Individual asset records |
+| ksf_assets_depreciation | Depreciation history entries |
+| ksf_assets_maintenance | Maintenance activity records |
+| ksf_assets_transfers | Asset transfer history |
 
 ### 8.2 Index Requirements
 
 | Table | Indexes |
 |-------|---------|
-| fa_assets | asset_tag (unique), category_id, status, debtor_no |
-| fa_asset_categories | name (unique) |
-| fa_asset_depreciation | asset_id, depreciation_date |
-| fa_asset_maintenance | asset_id, maintenance_date |
-| fa_asset_transfers | asset_id, transfer_date |
+| ksf_assets | asset_tag (unique), category_id, status, debtor_no |
+| ksf_assets_categories | name (unique) |
+| ksf_assets_depreciation | asset_id, depreciation_date |
+| ksf_assets_maintenance | asset_id, maintenance_date |
+| ksf_assets_transfers | asset_id, transfer_date |
 
 ---
 

@@ -286,7 +286,7 @@ $maint_id = add_maintenance(
 
 **Verification:**
 - Returns integer (maintenance ID)
-- Record exists in fa_asset_maintenance
+- Record exists in ksf_assets_maintenance
 
 **Expected Result:** Valid ID returned, record created
 

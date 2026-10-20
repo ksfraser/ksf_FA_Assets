@@ -226,11 +226,11 @@ Steps:
 ### 6.2 Database Schema
 
 **Tables Created:**
-- fa_asset_categories
-- fa_assets
-- fa_asset_depreciation
-- fa_asset_maintenance
-- fa_asset_transfers
+- ksf_assets_categories
+- ksf_assets
+- ksf_assets_depreciation
+- ksf_assets_maintenance
+- ksf_assets_transfers
 
 ### 6.3 Security Integration
 

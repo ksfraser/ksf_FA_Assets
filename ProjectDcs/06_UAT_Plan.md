@@ -47,7 +47,7 @@
 
 **Expected Result:**
 - Module activated without errors
-- 5 tables created: fa_asset_categories, fa_assets, fa_asset_depreciation, fa_asset_maintenance, fa_asset_transfers
+- 5 tables created: ksf_assets_categories, ksf_assets, ksf_assets_depreciation, ksf_assets_maintenance, ksf_assets_transfers
 - Menu items visible
 
 **Pass Criteria:**

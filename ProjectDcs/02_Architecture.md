@@ -45,11 +45,11 @@ The Fixed Assets module follows FrontAccounting's extension pattern using the ho
                                           │                       ▼
                                           │  ┌────────────────────────────────────────┐
                                           │  │          FA Assets Tables             │
-                                          │  │  fa_asset_categories                   │
-                                          │  │  fa_assets                             │
-                                          │  │  fa_asset_depreciation                 │
-                                          │  │  fa_asset_maintenance                  │
-                                          │  │  fa_asset_transfers                    │
+                                          │  │  ksf_assets_categories                   │
+                                          │  │  ksf_assets                             │
+                                          │  │  ksf_assets_depreciation                 │
+                                          │  │  ksf_assets_maintenance                  │
+                                          │  │  ksf_assets_transfers                    │
                                           │  └────────────────────────────────────────┘
                                           └─────────────────────────────────────────────────┘
 ```
@@ -82,7 +82,7 @@ ksf_FA_Assets/
 
 ```php
 class hooks_fa_assets extends hooks {
-    var $module_name = 'fa_assets';
+    var $module_name = 'ksf_assets';
     
     function install_options($app) {
         // Add module to Assets app menu
@@ -106,7 +106,7 @@ class hooks_fa_assets extends hooks {
 
 ```
 ┌─────────────────────────┐         ┌─────────────────────────┐
-│   fa_asset_categories   │         │       fa_assets          │
+│   ksf_assets_categories   │         │       ksf_assets          │
 ├─────────────────────────┤         ├─────────────────────────┤
 │ id (PK)                 │1       *│ id (PK)                 │
 │ name                    │─────────│ category_id (FK)        │
@@ -126,7 +126,7 @@ class hooks_fa_assets extends hooks {
                    │                             │                             │
                    ▼                             ▼                             ▼
 ┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
-│  fa_asset_depreciation  │   │   fa_asset_maintenance  │   │   fa_asset_transfers     │
+│  ksf_assets_depreciation  │   │   ksf_assets_maintenance  │   │   ksf_assets_transfers     │
 ├─────────────────────────┤   ├─────────────────────────┤   ├─────────────────────────┤
 │ id (PK)                 │   │ id (PK)                 │   │ id (PK)                 │
 │ asset_id (FK)          │   │ asset_id (FK)          │   │ asset_id (FK)          │
@@ -142,10 +142,10 @@ class hooks_fa_assets extends hooks {
 
 ### 3.2 Table Definitions
 
-#### fa_asset_categories
+#### ksf_assets_categories
 
 ```sql
-CREATE TABLE IF NOT EXISTS `fa_asset_categories` (
+CREATE TABLE IF NOT EXISTS `ksf_assets_categories` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL,
     `description` TEXT,
@@ -158,10 +158,10 @@ CREATE TABLE IF NOT EXISTS `fa_asset_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### fa_assets
+#### ksf_assets
 
 ```sql
-CREATE TABLE IF NOT EXISTS `fa_assets` (
+CREATE TABLE IF NOT EXISTS `ksf_assets` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `asset_tag` VARCHAR(50) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
@@ -298,7 +298,7 @@ function calculate_depreciation(int $asset_id, int $year): float
 │                         ▼                                       │
 │              ┌─────────────────────┐                           │
 │              │     Database        │                           │
-│              │   (fa_assets, etc.)  │                           │
+│              │   (ksf_assets, etc.)  │                           │
 │              └─────────────────────┘                           │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -318,8 +318,8 @@ function calculate_depreciation(int $asset_id, int $year): float
 │     ┌─────────────────────────────────────────────────────────┐ │
 │     │ SELECT a.*, c.depreciation_type, c.useful_life,         │ │
 │     │        c.salvage_value                                   │ │
-│     │ FROM fa_assets a                                         │ │
-│     │ JOIN fa_asset_categories c ON a.category_id = c.id        │ │
+│     │ FROM ksf_assets a                                         │ │
+│     │ JOIN ksf_assets_categories c ON a.category_id = c.id        │ │
 │     │ WHERE a.id = asset_id                                     │ │
 │     └─────────────────────────────────────────────────────────┘ │
 │                              │                                   │
@@ -414,9 +414,9 @@ Module Activation (hooks_fa_assets::activate_extension)
 │      db_query($sql, "Create table failed");                      │
 │  }                                                               │
 │                                                                  │
-│  Tables: fa_asset_categories, fa_assets,                        │
-│          fa_asset_depreciation, fa_asset_maintenance,           │
-│          fa_asset_transfers                                       │
+│  Tables: ksf_assets_categories, ksf_assets,                        │
+│          ksf_assets_depreciation, ksf_assets_maintenance,           │
+│          ksf_assets_transfers                                       │
 └─────────────────────────────────────────────────────────────────┘
               │
               ▼
