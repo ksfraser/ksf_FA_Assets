@@ -7,11 +7,11 @@
 ```
 ksf_FA_Assets/
 ├── sql/                    # Database schemas (FA TB_PREF tables)
-│   ├── fa_asset_categories.sql
-│   ├── fa_assets.sql
-│   ├── fa_asset_depreciation.sql
-│   ├── fa_asset_maintenance.sql
-│   └── fa_asset_transfers.sql
+│   ├── ksf_assets_categories.sql
+│   ├── ksf_assets.sql
+│   ├── ksf_assets_depreciation.sql
+│   ├── ksf_assets_maintenance.sql
+│   └── ksf_assets_transfers.sql
 ├── includes/              # FA-specific DB classes
 │   ├── asset_categories_db.inc
 │   ├── assets_db.inc
@@ -46,7 +46,7 @@ ksf_FA_Assets/
 ## RTM (Requirements Traceability Matrix)
 | Req ID | Description | Test Case | Code File | Version |
 |--------|-------------|-----------|----------|---------|
-| REQ-001 | Asset Categories | testCategoryCreate | sql/fa_asset_categories.sql | v1.0.0 |
+| REQ-001 | Asset Categories | testCategoryCreate | sql/ksf_assets_categories.sql | v1.0.0 |
 | REQ-002 | Asset Tracking | testAssetLifecycle | includes/assets_db.inc | v1.0.0 |
 | REQ-003 | Depreciation Calc | testDepreciationCalc | includes/depreciation_db.inc | v1.1.0 |
 ## BABOK Alignment
@@ -68,7 +68,7 @@ All development is done in the **devel tree** (`~/Documents/ksf_FA_Assets`). Do 
 6. **Push** `master` to GitHub
 7. **Deploy** to UAT by pulling in the Infrastructure bind point:
    ```
-   cd ~/ksf_Infrastructure/fa_modules/ksf_FA_Assets
+   cd ~/ksf_Infrastructure/0_ksf_modules/ksf_FA_Assets
    git stash -u
    git pull origin master
    git stash pop
@@ -77,4 +77,4 @@ All development is done in the **devel tree** (`~/Documents/ksf_FA_Assets`). Do 
 | Path | Purpose |
 |------|---------|
 | `~/Documents/ksf_FA_Assets` | Devel tree — all development, testing, commits |
-| `~/ksf_Infrastructure/fa_modules/ksf_FA_Assets` | UAT bind point — deployment target, integration testing (if mirrored) |
+| `~/ksf_Infrastructure/0_ksf_modules/ksf_FA_Assets` | UAT bind point — deployment target, integration testing (if mirrored) |
