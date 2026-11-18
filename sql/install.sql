@@ -81,6 +81,3 @@ CREATE TABLE IF NOT EXISTS `0_ksf_assets_transfers` (
     PRIMARY KEY (`id`),
     KEY `asset_id` (`asset_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Module version
-INSERT INTO `0_ksf_modules` (`name`, `version`, `enabled`, `installed`) VALUES ('Assets', '1.0.0', 1, NOW()) ON DUPLICATE KEY UPDATE `version` = '1.0.0';
